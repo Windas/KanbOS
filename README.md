@@ -8,6 +8,6 @@
 
 
 
-####Update 1st day: complete build an easy 'OS' called helloos using machine code
+**Update 1st day**: complete build an easy 'OS' called helloos using machine code
 
-####Update 2nd day: try to rebuild the helloos within an more readable 8086 assembly lang, also learn to use makefile to compile the codes.
+**Update 2nd day**: try to rebuild the helloos within an more readable 8086 assembly lang, also learn to use makefile to compile the codes.
