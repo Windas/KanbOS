@@ -1,7 +1,9 @@
-; hello-os
+; Kanb-OS
 ; TAB=4
 
-		ORG		0x7c00			; 系统基址
+CYLS 	EQU 	10 				;需要读取的柱面数量
+
+		ORG		0x7c00			;系统基址
 
 ; 以下内容针对FAT12标准设置
 
@@ -30,7 +32,7 @@
 ; 系统本体
 
 entry:
-		MOV		AX,0			; 初始化寄存器
+		MOV		AX,0			;初始化寄存器
 		MOV		SS,AX
 		MOV		SP,0x7c00
 		MOV		DS,AX
@@ -66,6 +68,17 @@ next:
 		ADD 	CL,1 			;扇区号增加1
 		CMP 	CL,18 			;直到读取到18扇区
 		JBE 	readloop 		;如果未读取完毕则继续读取
+		MOV		CL,1 			;扇区重置为1
+		ADD 	DH,1 			;磁头加1，实际上可以直接赋值为1
+		CMP 	DH,2
+		JB 		readloop 		;小于2时，需要跳转至readloop读取内容
+		MOV 	DH,0 			;第二面的柱面1读取完毕，磁头切换为0
+		ADD 	CH,1 			;开始读取第二柱面
+		CMP 	CH,CYLS 		;读取直到第十次
+		JB 		readloop
+
+		MOV 	SI,suc 		;读取结束输出成功信息
+		JMP 	putloop
 
 ;读取结束后使CPU进入待机状态
 
@@ -80,7 +93,7 @@ putloop:
 		MOV 	AL,[SI]
 		ADD 	SI,1
 		CMP 	AL,0
-		JE 		fin
+		JE 		last
 		MOV 	AH,0x0e			;文字显示指令
 		MOV 	BX,15
 		INT 	0x10			;显卡中断号
@@ -92,6 +105,15 @@ msg:
 		DB 		0x0a			;换行
 		DB 		0
 
-		RESB 	0x7dfe-$		;填充0x00
+suc:
+		DB 		0x0a, 0x0a 		;换两行
+		DB 		"reading success"
+		DB 		0x0a 			;换行
+		DB 		0
 
-		DB 		0x55, 0xaa		;启动校验位
+last:
+		
+		RESB 	0x7dfe-$ 		;填充0x00
+
+		DB 		0x55, 0xaa 		;启动校验位
+		JMP 	fin
