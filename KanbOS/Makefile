@@ -17,14 +17,15 @@ default :
 ipl.bin : ipl.nas Makefile
 	$(NASK) ipl.nas ipl.bin ipl.lst
 
-kanbos.img : ipl.bin Makefile
+kanbos.sys : kanbos.nas Makefile
+	$(NASK) kanbos.nas kanbos.sys kanbos.lst
+
+kanbos.img : ipl.bin kanbos.sys Makefile
 	$(EDIMG)   imgin:../z_tools/fdimg0at.tek \
-		wbinimg src:ipl.bin len:512 from:0 to:0   imgout:kanbos.img
-
+		wbinimg src:ipl.bin len:512 from:0 to:0 \
+		copy from:kanbos.sys to:@: \
+		imgout:kanbos.img
 # 指令
-
-asm :
-	$(MAKE) ipl.bin
 
 img :
 	$(MAKE) kanbos.img
@@ -36,11 +37,13 @@ run :
 
 install :
 	$(MAKE) img
-	$(IMGTOL) w a: haribote.img
+	$(IMGTOL) w a: kanbos.img
 
 clean :
 	-$(DEL) ipl.bin
 	-$(DEL) ipl.lst
+	-$(DEL) kanbos.sys
+	-$(DEL) kanbos.lst
 
 src_only :
 	$(MAKE) clean

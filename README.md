@@ -17,3 +17,4 @@
 - The second demo is about how to handle error when reading disk
 - The third demo is about to read until 18th section. All contents will be put into 0x8200 to 0xa3ff
 - Now we reach the fourth demo, which still load data on the disk. This time we try to load until 10 cylinders both sides. I add some messages to tell us whether loaded successfully
+- This demo add another .nas file which exactly is the real OS. We just load it into DRAM but not run it.
