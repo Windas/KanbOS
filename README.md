@@ -13,5 +13,5 @@
 **Update 2nd day**: try to rebuild the helloos within an more readable 8086 assembly lang, also learn to use makefile to compile the codes.
 
 **Update 3rd day**: this time we make a real IPL to boot our OS from disk.
--The first demo is about the way to boot program from disk using INT 0x13
--The second demo is about how to handle error when reading disk
+- The first demo is about the way to boot program from disk using INT 0x13
+- The second demo is about how to handle error when reading disk
