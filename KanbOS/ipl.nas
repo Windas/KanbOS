@@ -7,10 +7,11 @@
 
 		JMP		entry
 		DB		0x90
-		DB		"HELLOIPL"		
+		DB		"KANBOS  "		
 		DW		512				
 		DB		1				
-		DW		1				
+		DW		1
+
 		DB		2				
 		DW		224				
 		DW		2880			
@@ -22,39 +23,59 @@
 		DD		2880			
 		DB		0,0,0x29		
 		DD		0xffffffff		
-		DB		"HELLO-OS   "	
+		DB		"KANB-OS    "	
 		DB		"FAT12   "		
 		RESB	18				
 
 ; 系统本体
 
 entry:
-		MOV		AX,0			; 初始化AX寄存器
+		MOV		AX,0			; 初始化寄存器
 		MOV		SS,AX
 		MOV		SP,0x7c00
 		MOV		DS,AX
-		MOV		ES,AX
 
-		MOV		SI,msg
-putloop:
-		MOV		AL,[SI]
-		ADD		SI,1			; SI加一
-		CMP		AL,0
-		JE		fin
-		MOV		AH,0x0e			
-		MOV		BX,15			
-		INT		0x10			; 呼出显卡BIOS
-		JMP		putloop
+;读取磁盘
+		
+		MOV 	AX,0x0820		;除BIOS引导区以外的系统基址
+		MOV 	ES,AX 			
+		MOV 	CH,0 			;柱面0
+		MOV 	DH,0 			;磁头0
+		MOV		CL,2 			;扇区2
+
+		MOV		AH,0x02 		;读盘
+		MOV 	AL,1 			;读取一个扇区
+		MOV 	BX,0 			;偏移地址0
+		MOV 	DL,0x00 		;A驱动器
+		INT 	0x13 			;磁盘IO中断号
+		JC 		error			;磁盘读取错误则输出错误信息
+
+
+;读取结束后使CPU进入待机状态
+
 fin:
-		HLT						; 使CPU进入待机状态
-		JMP		fin				; 无限循环
+		HLT						;CPU待机
+		JMP		fin				;无限循环
+
+error:
+		MOV 	SI,msg
+
+putloop:
+		MOV 	AL,[SI]
+		ADD 	SI,1
+		CMP 	AL,0
+		JE 		fin
+		MOV 	AH,0x0e			;文字显示指令
+		MOV 	BX,15
+		INT 	0x10			;显卡中断号
+		JMP 	putloop
 
 msg:
-		DB		0x0a, 0x0a		; 换两行
-		DB		"hello, world"
-		DB		0x0a			; 换行
-		DB		0
+		DB 		0x0a, 0x0a		;换两行
+		DB 		"load error"
+		DB 		0x0a			;换行
+		DB 		0
 
-		RESB	0x7dfe-$		; 使用0x00填充直到0x7dfe
+		RESB 	0x7dfe-$		;填充0x00
 
-		DB		0x55, 0xaa		; 操作系统引导辨识码
+		DB 		0x55, 0xaa		;启动校验位
