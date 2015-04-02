@@ -43,6 +43,7 @@ entry:
 		MOV 	DH,0 			;磁头0
 		MOV		CL,2 			;扇区2
 
+readloop:
 		MOV 	SI,0 			;用于记录读取失败的次数
 
 retry:
@@ -51,7 +52,7 @@ retry:
 		MOV 	BX,0 			;偏移地址0
 		MOV 	DL,0x00 		;A驱动器
 		INT 	0x13 			;磁盘IO中断号
-		JNC 	fin 			;成功即转入fin
+		JNC 	next 			;成功即转入下个扇区读取
 		ADD 	SI,1 			;否则失败，记录次数加1
 		CMP 	SI,5 			;SI与5比较
 		JAE 	error 			;大于等于5次则抛出异常，停止读取
@@ -60,6 +61,11 @@ retry:
 		INT 	0x13
 		JMP 	retry
 
+next:
+		ADD 	BX,0x200 		;将地址指针向后移动一个扇区的大小（512B）
+		ADD 	CL,1 			;扇区号增加1
+		CMP 	CL,18 			;直到读取到18扇区
+		JBE 	readloop 		;如果未读取完毕则继续读取
 
 ;读取结束后使CPU进入待机状态
 
