@@ -43,12 +43,22 @@ entry:
 		MOV 	DH,0 			;磁头0
 		MOV		CL,2 			;扇区2
 
+		MOV 	SI,0 			;用于记录读取失败的次数
+
+retry:
 		MOV		AH,0x02 		;读盘
 		MOV 	AL,1 			;读取一个扇区
 		MOV 	BX,0 			;偏移地址0
 		MOV 	DL,0x00 		;A驱动器
 		INT 	0x13 			;磁盘IO中断号
-		JC 		error			;磁盘读取错误则输出错误信息
+		JNC 	fin 			;成功即转入fin
+		ADD 	SI,1 			;否则失败，记录次数加1
+		CMP 	SI,5 			;SI与5比较
+		JAE 	error 			;大于等于5次则抛出异常，停止读取
+		MOV 	AH,0x00 		;否则系统复位，重新读取
+		MOV 	DL,0x00
+		INT 	0x13
+		JMP 	retry
 
 
 ;读取结束后使CPU进入待机状态
