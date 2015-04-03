@@ -31,4 +31,4 @@
 - The last demo here, contain *naskfunc.nas* file to provide a HLT function adding to *bootpack.c*. 
 
 **Update 4th day**: about how to use Clang and draw something onto our monitor.
-- The first demo here. At the beginning of the forth day, I draw a white display to our monitor.
+- The first demo here. At the beginning of the forth day, I draw a purple display to our monitor.
