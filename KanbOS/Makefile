@@ -14,15 +14,15 @@ default :
 
 # 镜像生成依赖
 
-ipl.bin : ipl.nas Makefile
-	$(NASK) ipl.nas ipl.bin ipl.lst
+ipl10.bin : ipl10.nas Makefile
+	$(NASK) ipl10.nas ipl10.bin ipl10.lst
 
 kanbos.sys : kanbos.nas Makefile
 	$(NASK) kanbos.nas kanbos.sys kanbos.lst
 
-kanbos.img : ipl.bin kanbos.sys Makefile
+kanbos.img : ipl10.bin kanbos.sys Makefile
 	$(EDIMG)   imgin:../z_tools/fdimg0at.tek \
-		wbinimg src:ipl.bin len:512 from:0 to:0 \
+		wbinimg src:ipl10.bin len:512 from:0 to:0 \
 		copy from:kanbos.sys to:@: \
 		imgout:kanbos.img
 # 指令
@@ -40,8 +40,8 @@ install :
 	$(IMGTOL) w a: kanbos.img
 
 clean :
-	-$(DEL) ipl.bin
-	-$(DEL) ipl.lst
+	-$(DEL) ipl10.bin
+	-$(DEL) ipl10.lst
 	-$(DEL) kanbos.sys
 	-$(DEL) kanbos.lst
 

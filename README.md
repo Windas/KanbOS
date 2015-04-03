@@ -18,3 +18,4 @@
 - The third demo is about to read until 18th section. All contents will be put into 0x8200 to 0xa3ff
 - Now we reach the fourth demo, which still load data on the disk. This time we try to load until 10 cylinders both sides. I add some messages to tell us whether loaded successfully
 - This demo add another .nas file which exactly is the real OS. We just load it into DRAM but not run it.
+- Going to the sixth demo, which contain a real OS this time. The sys file call a graphic BIOS INT to show a total black display

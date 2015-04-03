@@ -1,4 +1,4 @@
-; Kanb-OS
+; Kanb-OS-ipl
 ; TAB=4
 
 CYLS 	EQU 	10 				;需要读取的柱面数量
@@ -64,7 +64,9 @@ retry:
 		JMP 	retry
 
 next:
-		ADD 	BX,0x200 		;将地址指针向后移动一个扇区的大小（512B）
+		MOV 	AX,ES 		;将地址指针向后移动一个扇区的大小（512B）
+		ADD		AX,0x0020
+		MOV		ES,AX
 		ADD 	CL,1 			;扇区号增加1
 		CMP 	CL,18 			;直到读取到18扇区
 		JBE 	readloop 		;如果未读取完毕则继续读取
@@ -77,14 +79,11 @@ next:
 		CMP 	CH,CYLS 		;读取直到第十次
 		JB 		readloop
 
-		MOV 	SI,suc 		;读取结束输出成功信息
-		JMP 	putloop
+;开始执行系统本体
 
-;读取结束后使CPU进入待机状态
+		MOV		[0x0ff0],CH		;将磁盘装载结束地址告知sys文件
+		JMP		0xc200 			;跳转进入系统本体
 
-fin:
-		HLT						;CPU待机
-		JMP		fin				;无限循环
 
 error:
 		MOV 	SI,msg
@@ -93,11 +92,17 @@ putloop:
 		MOV 	AL,[SI]
 		ADD 	SI,1
 		CMP 	AL,0
-		JE 		last
+		JE 		fin
 		MOV 	AH,0x0e			;文字显示指令
 		MOV 	BX,15
 		INT 	0x10			;显卡中断号
 		JMP 	putloop
+
+;读取结束后使CPU进入待机状态
+
+fin:
+		HLT						;CPU待机
+		JMP		fin				;无限循环
 
 msg:
 		DB 		0x0a, 0x0a		;换两行
@@ -105,15 +110,6 @@ msg:
 		DB 		0x0a			;换行
 		DB 		0
 
-suc:
-		DB 		0x0a, 0x0a 		;换两行
-		DB 		"reading success"
-		DB 		0x0a 			;换行
-		DB 		0
-
-last:
-		
 		RESB 	0x7dfe-$ 		;填充0x00
 
 		DB 		0x55, 0xaa 		;启动校验位
-		JMP 	fin
