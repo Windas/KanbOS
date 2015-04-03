@@ -29,3 +29,5 @@
 - The last demo here, containing *naskfunc.nas* file as to complete HLT function adding to *bootpack.c*.
 - This demo is the one which add the first .c file to complete the OS. Also chage into 32bit mode.
 - The last demo here, contain *naskfunc.nas* file to provide a HLT function adding to *bootpack.c*. 
+
+**Update 4th day**: about how to use Clang and draw something onto our monitor.
