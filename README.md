@@ -28,3 +28,4 @@
 - We are going to the sixth demo, which contain a real OS this time. The sys file call a graphic BIOS INT to show a total black display
 - The last demo here, containing *naskfunc.nas* file as to complete HLT function adding to *bootpack.c*.
 - This demo is the one which add the first .c file to complete the OS. Also chage into 32bit mode.
+- The last demo here, contain *naskfunc.nas* file to provide a HLT function adding to *bootpack.c*. 
