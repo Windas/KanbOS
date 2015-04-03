@@ -26,3 +26,4 @@
 - Now we reach the fourth demo, which still load data on the disk. This time we try to load until 10 cylinders both sides. I add some messages to tell us whether loaded successfully
 - This demo add another .nas file which exactly is the real OS. We just load it into DRAM but not run it.
 - We are going to the sixth demo, which contain a real OS this time. The sys file call a graphic BIOS INT to show a total black display
+- This demo is the one which add the first .c file to complete the OS. Also chage into 32bit mode.
