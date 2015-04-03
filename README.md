@@ -11,7 +11,7 @@
 1. Clone those source code above first.
 2. `cd` to the KanbOS directory in tolset folder.
 3. Open *!cons_nt.bat* file to run console.
-4. Input `make run` to run this OS.
+4. Input `make run` and wait a moment.
 
 ##Log
 -------------------
