@@ -35,3 +35,4 @@
 - Now pointer is appeared! Finally we can use pointer to show our graphs:)
 - OK we've already move a step forward. This time is palette. Color defined by ourselves.
 - Now, here we have three filled boxes. First try to draw some graphs in our OS:)
+- Toolbar!!! A little bit excited.
