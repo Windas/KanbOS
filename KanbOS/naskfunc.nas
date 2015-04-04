@@ -20,9 +20,3 @@
 _io_hlt:	; void io_hlt(void);
 		HLT
 		RET
-
-_write_mem8:
-		MOV 	ECX,[ESP+4] 	; 第一个参数
-		MOV 	AL,[ESP+8] 		; 第二个参数（因为均为整型，32bit下整型为4字节）
-		MOV 	[ECX],AL 
-		RET
