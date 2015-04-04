@@ -32,3 +32,4 @@
 
 **Update 4th day**: about how to use Clang and draw something onto our monitor.
 - The first demo here. At the beginning of the forth day, I draw a purple display to our monitor.
+- Now pointer is appeared! Finally we can use pointer to show our graphs:)
