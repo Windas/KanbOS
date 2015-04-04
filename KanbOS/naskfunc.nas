@@ -10,7 +10,7 @@
 
 [FILE "naskfunc.nas"]			; 源文件信息
 
-		GLOBAL	_io_hlt,_write_mem8			; 程序中的函数名
+		GLOBAL	_io_hlt			; 程序中的函数名
 
 
 ; 实际的函数实现

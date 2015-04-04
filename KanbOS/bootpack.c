@@ -2,11 +2,10 @@ void io_hlt(void);
 
 void HariMain(void)
 {
-	int i;
+
 	char* p;
 
-	for (i = 0xa0000; i <= 0xaffff; i++) {
-		p = i;
+	for (p = 0xa0000; p <= 0xaffff; p++) {
 		*p = 9; 
 	}
 
