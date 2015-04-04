@@ -26,7 +26,7 @@ asmhead.bin : asmhead.nas Makefile
 	$(NASK) asmhead.nas asmhead.bin asmhead.lst
 
 bootpack.gas : bootpack.c Makefile
-	$(CC1) -o bootpack.gas bootpack.c
+	$(CC1) -std=c99 -o bootpack.gas bootpack.c
 
 bootpack.nas : bootpack.gas Makefile
 	$(GAS2NASK) bootpack.gas bootpack.nas

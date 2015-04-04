@@ -5,8 +5,8 @@ void HariMain(void)
 
 	char* p;
 
-	for (p = 0xa0000; p <= 0xaffff; p++) {
-		*p = 9; 
+	for (int i = 0xa0000; i <= 0xaffff; i++) {
+		*(p + i) = 9; 
 	}
 
 	for ( ; ; ) {
