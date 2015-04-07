@@ -9,9 +9,9 @@ DSKCAC0	EQU		0x00008000		;
 CYLS	EQU		0x0ff0			; 
 LEDS	EQU		0x0ff1
 VMODE	EQU		0x0ff2			; 
-SCRNX	EQU		0x0ff4			; 
-SCRNY	EQU		0x0ff6			; 
-VRAM	EQU		0x0ff8			; 
+SCRNX	EQU		0x0ff4			; 屏幕x方向上的解析度
+SCRNY	EQU		0x0ff6			; 屏幕y方向上的解析度
+VRAM	EQU		0x0ff8			; 储存显存起始地址（起始地址0xa0000）
 
 		ORG		0xc200			; 设定系统本体基址，用于写入sys文件中
 

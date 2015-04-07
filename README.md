@@ -36,3 +36,9 @@
 - OK we've already move a step forward. This time is palette. Color defined by ourselves.
 - Now, here we have three filled boxes. First try to draw some graphs in our OS:)
 - Toolbar!!! A little bit excited.
+
+**Update 5th day**: put charactor on the screen, then draw mouse pointer.
+-First demo this day is about how to use pointer to get information of screen.
+-Second demo is about using struct to store data of screen.
+-Coming to the third demo, this one is the one which achieves putting charactor A.
+-Forth demo is a development of the third one, which puts a string 'ABC123'.
